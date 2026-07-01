@@ -1,0 +1,56 @@
+{% extends "base_template.html" %}
+
+{% block title %}
+    <title>Pé Confortável Ltda - Listar Produtos </title>
+{% endblock %}
+
+{% block menu %}
+    <div class="collapse navbar-collapse justify-content-end" id="mynavbar">
+        <div class="navbar-nav">
+            <a href="{% url 'index' %}" class="nav-link">Início</a>
+            <a href="{% url 'produtos:cadastro'%}" class="nav-link">Cadastrar</a>
+            <a href="{% url 'produtos:listar'%}" class="nav-link">Listar</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block titulo_pagina %}
+{% endblock %}
+
+{% block corpo %}
+<main class="container mt-4">
+
+    <div class="row">
+        <div class="col text-center">
+            <h2 class="mb-4">Lista de Produtos</h2>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-hover table-bordered text-center">
+
+            <thead class="table-bege">
+                <tr>
+                    <th>Código</th>
+                    <th>Nome do Cliente</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr><td>1</td><td>Tênis</td></tr>
+                <tr><td>2</td><td>Sapatilha</td></tr>
+                <tr><td>3</td><td>Sandália</td></tr>
+                <tr><td>4</td><td>Chinelo</td></tr>
+                
+            </tbody>
+        </table>
+
+    </div>
+
+</main>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
