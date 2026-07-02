@@ -1,0 +1,75 @@
+{% extends "base_template.html" %}
+
+{% block title %}
+    <title>Pé Confortável Ltda - Listar Clientes</title>
+{% endblock %}
+
+{% block menu %}
+    <div class="collapse navbar-collapse justify-content-end" id="mynavbar">
+        <div class="navbar-nav">
+            <a href="{% url 'index' %}" class="nav-link">Início</a>
+            <a href="{% url 'clientes:cadastro' %}" class="nav-link">Cadastrar</a>
+            <a href="{% url 'clientes:listar' %}" class="nav-link">Listar</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block titulo_pagina %}
+{% endblock %}
+
+{% block corpo %}
+<main class="container mt-4">
+
+    <div class="row">
+        <div class="col text-center">
+            <h2 class="mb-4">Lista de Clientes</h2>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-hover table-bordered text-center">
+
+            <thead class="table-bege">
+                <tr>
+                    <th>CPF</th>
+                    <th>Nome</th>
+                    <th>Endereço</th>
+                    <th>Telefone</th>
+                    <th>UF</th>
+                    <th>Cidade</th>
+                    <th>Gênero</th>
+                    <th>Contato</th>
+                    <th>E-mail</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for cliente in clientes %}
+                <tr>
+                    <td>{{ cliente.cpf }}</td>
+                    <td>{{ cliente.nome }}</td>
+                    <td>{{ cliente.endereco }}</td>
+                    <td>{{ cliente.telefone }}</td>
+                    <td>{{ cliente.uf }}</td>
+                    <td>{{ cliente.cidade }}</td>
+                    <td>{{ cliente.genero }}</td>
+                    <td>{{ cliente.contato }}</td>
+                    <td>{{ cliente.email }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="9">Nenhum cliente cadastrado.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+    </div>
+
+</main>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
