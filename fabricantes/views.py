@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Fabricantes
 
 # Create your views here.
@@ -12,3 +12,12 @@ def listar(request):
 
 def cadastro(request):
     return render(request, 'fabricantes/CadastroFabricantes.html')
+
+def excluir(request, codigo):
+    try:
+        fabricante = Fabricantes.objects.get(pk=codigo)
+        fabricante.delete()
+    except Fabricantes.DoesNotExist:
+        pass
+
+    return redirect('fabricantes:listar')

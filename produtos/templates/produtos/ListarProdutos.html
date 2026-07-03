@@ -5,13 +5,13 @@
 {% endblock %}
 
 {% block menu %}
-    <div class="collapse navbar-collapse justify-content-end" id="mynavbar">
-        <div class="navbar-nav">
-            <a href="{% url 'index' %}" class="nav-link">Início</a>
-            <a href="{% url 'produtos:cadastro' %}" class="nav-link">Cadastrar</a>
-            <a href="{% url 'produtos:listar' %}" class="nav-link">Listar</a>
-        </div>
+<div class="collapse navbar-collapse justify-content-end" id="mynavbar">
+    <div class="navbar-nav">
+        <a href="{% url 'index' %}" class="nav-link">Início</a>
+        <a href="{% url 'produtos:cadastro' %}" class="nav-link">Cadastrar</a>
+        <a href="{% url 'produtos:listar' %}" class="nav-link">Listar</a>
     </div>
+</div>
 {% endblock %}
 
 {% block titulo_pagina %}
@@ -38,24 +38,51 @@
                     <th>Preço Venda</th>
                     <th>Cor</th>
                     <th>Fabricante</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
 
             <tbody>
+
                 {% for produto in produtos %}
                 <tr>
+
                     <td>{{ produto.codigo }}</td>
                     <td>{{ produto.nome }}</td>
                     <td>R$ {{ produto.preco_compra }}</td>
                     <td>R$ {{ produto.preco_venda }}</td>
                     <td>{{ produto.cor }}</td>
                     <td>{{ produto.fabricantes.nome }}</td>
+
+                    <td>
+
+                        <a href="#" class="btn btn-sm btn-primary">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+
+                        <button
+                            type="button"
+                            class="btn btn-sm btn-danger"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalExcluirProduto"
+                            data-url="{% url 'produtos:excluir' produto.codigo %}">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+
+                    </td>
+
                 </tr>
+
                 {% empty %}
+
                 <tr>
-                    <td colspan="7">Nenhum produto cadastrado.</td>
+                    <td colspan="7">
+                        Nenhum produto cadastrado.
+                    </td>
                 </tr>
+
                 {% endfor %}
+
             </tbody>
 
         </table>
@@ -63,6 +90,54 @@
     </div>
 
 </main>
+
+<!-- Modal -->
+<div class="modal fade" id="modalExcluirProduto" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Excluir Produto</h5>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal">
+                </button>
+            </div>
+
+            <div class="modal-body">
+                Deseja realmente excluir este produto?
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                    Cancelar
+                </button>
+
+                <a href="#" id="btnExcluir" class="btn btn-danger">
+                    Excluir
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+const modalExcluir = document.getElementById('modalExcluirProduto');
+
+modalExcluir.addEventListener('show.bs.modal', function (event) {
+    const botao = event.relatedTarget;
+    const url = botao.getAttribute('data-url');
+
+    document.getElementById('btnExcluir').href = url;
+});
+</script>
+
 {% endblock %}
 
 {% block footer %}

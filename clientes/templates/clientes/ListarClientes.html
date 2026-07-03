@@ -1,17 +1,17 @@
 {% extends "base_template.html" %}
 
 {% block title %}
-    <title>Pé Confortável Ltda - Listar Clientes</title>
+<title>Pé Confortável Ltda - Listar Clientes</title>
 {% endblock %}
 
 {% block menu %}
-    <div class="collapse navbar-collapse justify-content-end" id="mynavbar">
-        <div class="navbar-nav">
-            <a href="{% url 'index' %}" class="nav-link">Início</a>
-            <a href="{% url 'clientes:cadastro' %}" class="nav-link">Cadastrar</a>
-            <a href="{% url 'clientes:listar' %}" class="nav-link">Listar</a>
-        </div>
+<div class="collapse navbar-collapse justify-content-end" id="mynavbar">
+    <div class="navbar-nav">
+        <a href="{% url 'index' %}" class="nav-link">Início</a>
+        <a href="{% url 'clientes:cadastro' %}" class="nav-link">Cadastrar</a>
+        <a href="{% url 'clientes:listar' %}" class="nav-link">Listar</a>
     </div>
+</div>
 {% endblock %}
 
 {% block titulo_pagina %}
@@ -41,10 +41,12 @@
                     <th>Gênero</th>
                     <th>Contato</th>
                     <th>E-mail</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
 
             <tbody>
+
                 {% for cliente in clientes %}
                 <tr>
                     <td>{{ cliente.cpf }}</td>
@@ -56,12 +58,32 @@
                     <td>{{ cliente.genero }}</td>
                     <td>{{ cliente.contato }}</td>
                     <td>{{ cliente.email }}</td>
+
+                    <td>
+                        <a href="#" class="btn btn-sm btn-primary">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+
+                        <button
+                            type="button"
+                            class="btn btn-sm btn-danger"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalExcluirCliente"
+                            data-url="{% url 'clientes:excluir' cliente.cpf %}">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+
                 </tr>
+
                 {% empty %}
+
                 <tr>
-                    <td colspan="9">Nenhum cliente cadastrado.</td>
+                    <td colspan="10">Nenhum cliente cadastrado.</td>
                 </tr>
+
                 {% endfor %}
+
             </tbody>
 
         </table>
@@ -69,6 +91,46 @@
     </div>
 
 </main>
+
+<!-- Modal -->
+<div class="modal fade" id="modalExcluirCliente" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Excluir Cliente</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                Deseja realmente excluir este cliente?
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cancelar
+                </button>
+
+                <a href="#" id="btnExcluir" class="btn btn-danger">
+                    Excluir
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+const modalExcluir = document.getElementById('modalExcluirCliente');
+
+modalExcluir.addEventListener('show.bs.modal', function (event) {
+    const botao = event.relatedTarget;
+    const url = botao.getAttribute('data-url');
+
+    document.getElementById('btnExcluir').href = url;
+});
+</script>
+
 {% endblock %}
 
 {% block footer %}

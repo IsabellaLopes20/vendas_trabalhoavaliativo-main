@@ -6,4 +6,6 @@ app_name = "clientes"
 urlpatterns = [
     path('lista/', views.listar, name='listar'),
     path('cadastro/', views.cadastro, name='cadastro'),
+    path('excluir/<str:cpf>/', views.excluir, name='excluir'),
+    
 ]
