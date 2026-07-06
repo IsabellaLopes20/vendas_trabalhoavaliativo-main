@@ -1,61 +1,72 @@
 from django import forms
+from .models import Clientes
 
-class ClienteForm(forms.Form):
-    cpf = forms.CharField(
-        max_length=11,
-        required=True,
-        help_text='Informe o CPF do cliente'
-    )
 
-    nome = forms.CharField(
-        max_length=70,
-        required=True,
-        help_text='Informe o nome do cliente'
-    )
+class ClienteForm(forms.ModelForm):
 
-    endereco = forms.CharField(
-        max_length=100,
-        required=True,
-        help_text='Informe o endereço do cliente'
-    )
+    class Meta:
+        model = Clientes
+        fields = [
+            'cpf',
+            'nome',
+            'endereco',
+            'telefone',
+            'uf',
+            'cidade',
+            'genero',
+            'contato',
+            'email',
+            'senha'
+        ]
 
-    telefone = forms.CharField(
-        max_length=11,
-        required=True,
-        help_text='Informe o telefone do cliente'
-    )
+        widgets = {
+            'cpf': forms.TextInput(attrs={
+                'class': 'form-control bg-light text-dark',
+                'placeholder': 'Informe o CPF do cliente'
+            }),
 
-    uf = forms.CharField(
-        max_length=2,
-        required=True,
-        help_text='Informe a UF do cliente'
-    )
+            'nome': forms.TextInput(attrs={
+                'class': 'form-control bg-light text-dark',
+                'placeholder': 'Informe o nome do cliente'
+            }),
 
-    cidade = forms.CharField(
-        max_length=50,
-        required=True,
-        help_text='Informe a cidade do cliente'
-    )
+            'endereco': forms.TextInput(attrs={
+                'class': 'form-control bg-light text-dark',
+                'placeholder': 'Informe o endereço do cliente'
+            }),
 
-    genero = forms.CharField(
-        max_length=1,
-        required=True,
-        help_text='Informe o gênero do cliente'
-    )
+            'telefone': forms.TextInput(attrs={
+                'class': 'form-control bg-light text-dark',
+                'placeholder': 'Informe o telefone do cliente'
+            }),
 
-    contato = forms.CharField(
-        max_length=100,
-        required=True,
-        help_text='Informe o contato do cliente'
-    )
+            'uf': forms.TextInput(attrs={
+                'class': 'form-control bg-light text-dark',
+                'placeholder': 'Informe a UF'
+            }),
 
-    email = forms.EmailField(
-        required=True,
-        help_text='Informe o e-mail do cliente'
-    )
+            'cidade': forms.TextInput(attrs={
+                'class': 'form-control bg-light text-dark',
+                'placeholder': 'Informe a cidade'
+            }),
 
-    senha = forms.CharField(
-        max_length=256,
-        required=True,
-        help_text='Informe a senha do cliente'
-    )
+            'genero': forms.TextInput(attrs={
+                'class': 'form-control bg-light text-dark',
+                'placeholder': 'Informe o gênero'
+            }),
+
+            'contato': forms.TextInput(attrs={
+                'class': 'form-control bg-light text-dark',
+                'placeholder': 'Informe o contato'
+            }),
+
+            'email': forms.EmailInput(attrs={
+                'class': 'form-control bg-light text-dark',
+                'placeholder': 'Informe o e-mail'
+            }),
+
+            'senha': forms.PasswordInput(attrs={
+                'class': 'form-control bg-light text-dark',
+                'placeholder': 'Informe a senha'
+            }),
+        }

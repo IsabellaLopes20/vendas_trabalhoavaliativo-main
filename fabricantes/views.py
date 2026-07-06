@@ -47,20 +47,14 @@ def editar(request, codigo):
     fabricante = get_object_or_404(Fabricantes, codigo=codigo)
 
     if request.method == 'POST':
-        form = FabricanteForm(request.POST)
+        form = FabricanteForm(request.POST, instance=fabricante)
 
         if form.is_valid():
-            dados = form.cleaned_data
-
-            fabricante.nome = dados['nome']
-            fabricante.save()
-
+            form.save()
             return redirect('fabricantes:listar')
 
     else:
-        form = FabricanteForm(initial={
-            'nome': fabricante.nome
-        })
+        form = FabricanteForm(instance=fabricante)
 
     return render(request, 'fabricantes/CadastroFabricantes.html', {
         'form': form

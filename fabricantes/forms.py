@@ -1,8 +1,16 @@
 from django import forms
+from .models import Fabricantes
 
-class FabricanteForm(forms.Form):
-    nome = forms.CharField(
-        max_length=70,
-        required=True,
-        help_text='Informe o nome do fabricante'
-    )
+
+class FabricanteForm(forms.ModelForm):
+
+    class Meta:
+        model = Fabricantes
+        fields = ['nome']
+
+        widgets = {
+            'nome': forms.TextInput(attrs={
+                'class': 'form-control bg-light text-dark',
+                'placeholder': 'Informe o nome do fabricante'
+            })
+        }

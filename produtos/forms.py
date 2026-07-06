@@ -1,32 +1,42 @@
 from django import forms
+from .models import Produtos
 from fabricantes.models import Fabricantes
 
-class ProdutoForm(forms.Form):
 
-    nome = forms.CharField(
-        max_length=70,
-        required=True,
-        help_text='Informe o nome do produto'
-    )
+class ProdutoForm(forms.ModelForm):
 
-    preco_compra = forms.FloatField(
-        required=True,
-        help_text='Informe o preço de compra'
-    )
+    class Meta:
+        model = Produtos
+        fields = [
+            'nome',
+            'preco_compra',
+            'preco_venda',
+            'cor',
+            'fabricantes'
+        ]
 
-    preco_venda = forms.FloatField(
-        required=True,
-        help_text='Informe o preço de venda'
-    )
+        widgets = {
+            'nome': forms.TextInput(attrs={
+                'class': 'form-control bg-light text-dark',
+                'placeholder': 'Informe o nome do produto'
+            }),
 
-    cor = forms.CharField(
-        max_length=20,
-        required=True,
-        help_text='Informe a cor do produto'
-    )
+            'preco_compra': forms.NumberInput(attrs={
+                'class': 'form-control bg-light text-dark',
+                'placeholder': 'Informe o preço de compra'
+            }),
 
-    fabricantes = forms.ModelChoiceField(
-        queryset=Fabricantes.objects.all(),
-        required=True,
-        empty_label='Selecione um fabricante'
-    )
+            'preco_venda': forms.NumberInput(attrs={
+                'class': 'form-control bg-light text-dark',
+                'placeholder': 'Informe o preço de venda'
+            }),
+
+            'cor': forms.TextInput(attrs={
+                'class': 'form-control bg-light text-dark',
+                'placeholder': 'Informe a cor'
+            }),
+
+            'fabricantes': forms.Select(attrs={
+                'class': 'form-control'
+            }),
+        }

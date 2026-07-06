@@ -57,42 +57,15 @@ def editar(request, cpf):
     cliente = get_object_or_404(Clientes, cpf=cpf)
 
     if request.method == 'POST':
-        form = ClienteForm(request.POST)
+        form = ClienteForm(request.POST, instance=cliente)
 
         if form.is_valid():
-            dados = form.cleaned_data
-
-            cliente.cpf = dados['cpf']
-            cliente.nome = dados['nome']
-            cliente.endereco = dados['endereco']
-            cliente.telefone = dados['telefone']
-            cliente.uf = dados['uf']
-            cliente.cidade = dados['cidade']
-            cliente.genero = dados['genero']
-            cliente.contato = dados['contato']
-            cliente.email = dados['email']
-            cliente.senha = dados['senha']
-
-            cliente.save()
-
+            form.save()
             return redirect('clientes:listar')
 
     else:
-        form = ClienteForm(initial={
-            'cpf': cliente.cpf,
-            'nome': cliente.nome,
-            'endereco': cliente.endereco,
-            'telefone': cliente.telefone,
-            'uf': cliente.uf,
-            'cidade': cliente.cidade,
-            'genero': cliente.genero,
-            'contato': cliente.contato,
-            'email': cliente.email,
-            'senha': cliente.senha,
-        })
+        form = ClienteForm(instance=cliente)
 
     return render(request, 'clientes/CadastroClientes.html', {
         'form': form
     })
-
-
