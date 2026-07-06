@@ -1,0 +1,136 @@
+{% extends "base_template.html" %}
+
+{% block title %}
+<title>Pé Confortável Ltda - Listar Fabricantes</title>
+{% endblock %}
+
+{% block menu %}
+<div class="collapse navbar-collapse justify-content-end" id="mynavbar">
+    <div class="navbar-nav">
+        <a href="{% url 'index' %}" class="nav-link">Início</a>
+        <a href="{% url 'fabricantes:cadastro' %}" class="nav-link">Cadastrar</a>
+        <a href="{% url 'fabricantes:listar' %}" class="nav-link">Listar</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block titulo_pagina %}
+{% endblock %}
+
+{% block corpo %}
+<main class="container mt-4">
+
+    <div class="row">
+        <div class="col text-center">
+            <h2 class="mb-4">Lista de Fabricantes</h2>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-hover table-bordered text-center">
+
+            <thead class="table-bege">
+                <tr>
+                    <th>Código</th>
+                    <th>Nome do Fabricante</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for fabricante in fabricantes %}
+                <tr>
+
+                    <td>{{ fabricante.codigo }}</td>
+                    <td>{{ fabricante.nome }}</td>
+
+                    <td>
+
+                        <a href="{% url 'fabricantes:editar' fabricante.codigo %}" class="btn btn-sm btn-primary">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+
+                        <button
+                            type="button"
+                            class="btn btn-sm btn-danger"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalExcluirFabricante"
+                            data-url="{% url 'fabricantes:excluir' fabricante.codigo %}">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+                    <td colspan="3">
+                        Nenhum fabricante cadastrado.
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</main>
+
+<!-- Modal -->
+<div class="modal fade" id="modalExcluirFabricante" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Excluir Fabricante</h5>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal">
+                </button>
+            </div>
+
+            <div class="modal-body">
+                Deseja realmente excluir este fabricante?
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                    Cancelar
+                </button>
+
+                <a href="#" id="btnExcluir" class="btn btn-danger">
+                    Excluir
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+const modalExcluir = document.getElementById('modalExcluirFabricante');
+
+modalExcluir.addEventListener('show.bs.modal', function (event) {
+    const botao = event.relatedTarget;
+    const url = botao.getAttribute('data-url');
+
+    document.getElementById('btnExcluir').href = url;
+});
+</script>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

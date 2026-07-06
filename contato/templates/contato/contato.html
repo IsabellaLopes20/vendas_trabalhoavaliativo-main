@@ -1,0 +1,77 @@
+{% extends "base_template.html" %}
+
+{% block title %}
+    <title>Pé Confortável Ltda - Contato</title>
+{% endblock %}
+
+{% block menu %}
+<div class="collapse navbar-collapse justify-content-end" id="mynavbar">
+    <div class="navbar-nav">
+        <a href="{% url 'index' %}" class="nav-link">Início</a>
+        <a href="{% url 'contato:contato' %}" class="nav-link">Contato</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block titulo_pagina %}
+<h2 class="text-center my-4">Entre em Contato ainda em construção</h2>
+{% endblock %}
+
+{% block corpo %}
+<div class="container">
+    <form name="idFrmContato" action="#" method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="idNome" class="col-form-label">Nome Completo</label>
+            <input class="form-control bg-light text-dark"
+                   type="text"
+                   id="idNome"
+                   name="nome"
+                   placeholder="Informe seu nome completo"
+                   maxlength="100"
+                   required>
+        </div>
+
+        <div class="form-group mt-3">
+            <label for="idEmail" class="col-form-label">E-mail</label>
+            <input class="form-control bg-light text-dark"
+                   type="email"
+                   id="idEmail"
+                   name="email"
+                   placeholder="Informe seu e-mail"
+                   maxlength="100"
+                   required>
+        </div>
+
+        <div class="form-group mt-3">
+            <label for="idTelefone" class="col-form-label">Telefone</label>
+            <input class="form-control bg-light text-dark"
+                   type="text"
+                   id="idTelefone"
+                   name="telefone"
+                   placeholder="(00) 00000-0000"
+                   maxlength="11"
+                   required>
+        </div>
+
+        <div class="form-group mt-3">
+            <label for="idHorario" class="col-form-label">Melhor hora para contato</label>
+            <select class="form-control bg-light text-dark" id="idHorario" name="horario" required>
+                <option value="">Selecione</option>
+                <option>Manhã</option>
+                <option>Tarde</option>
+                <option>Noite</option>
+            </select>
+        </div>
+
+        <div class="form-group my-4 text-center">
+            <input type="reset" value="Limpar" class="btn table-bege btn-md">
+            <input type="submit" value="Enviar" class="btn table-bege btn-md">
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
