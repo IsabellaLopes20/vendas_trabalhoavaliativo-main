@@ -16,7 +16,7 @@ GENERO_CHOICES = [
 ]
 
 CIDADE_CHOICES = [
-    ('Ronônia', 'Porto Velho'),
+    ('Rondônia', 'Porto Velho'),
     ('Rio de Janeiro', 'Rio de Janeiro'),
     ('São Paulo', ' São Paulo'),
     ('Distrito Federal', 'Brasília'),

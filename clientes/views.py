@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Clientes
 from .forms import ClienteForm
 
+
 def listar(request):
     clientes = Clientes.objects.all()
 
@@ -9,8 +10,38 @@ def listar(request):
         'clientes': clientes
     })
 
+
 def cadastro(request):
-    return render(request, 'clientes/CadastroClientes.html')
+    if request.method == 'POST':
+        form = ClienteForm(request.POST)
+
+        if form.is_valid():
+            dados = form.cleaned_data
+
+            cliente = Clientes(
+                cpf=dados['cpf'],
+                nome=dados['nome'],
+                endereco=dados['endereco'],
+                telefone=dados['telefone'],
+                uf=dados['uf'],
+                cidade=dados['cidade'],
+                genero=dados['genero'],
+                contato=dados['contato'],
+                email=dados['email'],
+                senha=dados['senha']
+            )
+
+            cliente.save()
+
+            return redirect('clientes:listar')
+
+    else:
+        form = ClienteForm()
+
+    return render(request, 'clientes/CadastroClientes.html', {
+        'form': form
+    })
+
 
 def excluir(request, cpf):
     try:

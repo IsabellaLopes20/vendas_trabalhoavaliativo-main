@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Fabricantes
+from .forms import FabricanteForm
 
-# Create your views here.
 
 def listar(request):
     fabricantes = Fabricantes.objects.all()
@@ -10,8 +10,29 @@ def listar(request):
         'fabricantes': fabricantes
     })
 
+
 def cadastro(request):
-    return render(request, 'fabricantes/CadastroFabricantes.html')
+    if request.method == 'POST':
+        form = FabricanteForm(request.POST)
+
+        if form.is_valid():
+            dados = form.cleaned_data
+
+            fabricante = Fabricantes(
+                nome=dados['nome']
+            )
+
+            fabricante.save()
+
+            return redirect('fabricantes:listar')
+
+    else:
+        form = FabricanteForm()
+
+    return render(request, 'fabricantes/CadastroFabricantes.html', {
+        'form': form
+    })
+
 
 def excluir(request, codigo):
     try:

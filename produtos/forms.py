@@ -1,6 +1,8 @@
 from django import forms
+from fabricantes.models import Fabricantes
 
 class ProdutoForm(forms.Form):
+
     nome = forms.CharField(
         max_length=70,
         required=True,
@@ -23,13 +25,8 @@ class ProdutoForm(forms.Form):
         help_text='Informe a cor do produto'
     )
 
-    imagem = forms.CharField(
-        max_length=25,
+    fabricantes = forms.ModelChoiceField(
+        queryset=Fabricantes.objects.all(),
         required=True,
-        help_text='Informe o nome da imagem'
-    )
-
-    fabricante = forms.IntegerField(
-        required=True,
-        help_text='Informe o código do fabricante'
+        empty_label='Selecione um fabricante'
     )
