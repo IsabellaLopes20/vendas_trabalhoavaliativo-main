@@ -40,19 +40,16 @@ class ClienteForm(forms.ModelForm):
                 'placeholder': 'Informe o telefone do cliente'
             }),
 
-            'uf': forms.TextInput(attrs={
-                'class': 'form-control bg-light text-dark',
-                'placeholder': 'Informe a UF'
+           'uf': forms.Select(attrs={
+               'class': 'form-control bg-light text-dark'
             }),
 
-            'cidade': forms.TextInput(attrs={
-                'class': 'form-control bg-light text-dark',
-                'placeholder': 'Informe a cidade'
+           'cidade': forms.Select(attrs={
+               'class': 'form-control bg-light text-dark'
             }),
 
-            'genero': forms.TextInput(attrs={
-                'class': 'form-control bg-light text-dark',
-                'placeholder': 'Informe o gênero'
+           'genero': forms.Select(attrs={
+               'class': 'form-control bg-light text-dark'
             }),
 
             'contato': forms.TextInput(attrs={
