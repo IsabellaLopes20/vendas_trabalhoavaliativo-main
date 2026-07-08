@@ -52,9 +52,8 @@ class ClienteForm(forms.ModelForm):
                'class': 'form-control bg-light text-dark'
             }),
 
-            'contato': forms.TextInput(attrs={
-                'class': 'form-control bg-light text-dark',
-                'placeholder': 'Informe o contato'
+            'contato': forms.Select(attrs={
+               'class': 'form-control bg-light text-dark'
             }),
 
             'email': forms.EmailInput(attrs={

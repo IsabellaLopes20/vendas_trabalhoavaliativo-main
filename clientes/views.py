@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.hashers import make_password
 from .models import Clientes
 from .forms import ClienteForm
 
@@ -16,20 +17,10 @@ def cadastro(request):
         form = ClienteForm(request.POST)
 
         if form.is_valid():
-            dados = form.cleaned_data
+            cliente = form.save(commit=False)
 
-            cliente = Clientes(
-                cpf=dados['cpf'],
-                nome=dados['nome'],
-                endereco=dados['endereco'],
-                telefone=dados['telefone'],
-                uf=dados['uf'],
-                cidade=dados['cidade'],
-                genero=dados['genero'],
-                contato=dados['contato'],
-                email=dados['email'],
-                senha=dados['senha']
-            )
+            # Gera o hash da senha
+            cliente.senha = make_password(form.cleaned_data['senha'])
 
             cliente.save()
 
@@ -44,11 +35,8 @@ def cadastro(request):
 
 
 def excluir(request, cpf):
-    try:
-        cliente = Clientes.objects.get(pk=cpf)
-        cliente.delete()
-    except Clientes.DoesNotExist:
-        pass
+    cliente = get_object_or_404(Clientes, pk=cpf)
+    cliente.delete()
 
     return redirect('clientes:listar')
 
@@ -60,7 +48,13 @@ def editar(request, cpf):
         form = ClienteForm(request.POST, instance=cliente)
 
         if form.is_valid():
-            form.save()
+            cliente = form.save(commit=False)
+
+            # Gera o hash da senha novamente
+            cliente.senha = make_password(form.cleaned_data['senha'])
+
+            cliente.save()
+
             return redirect('clientes:listar')
 
     else:

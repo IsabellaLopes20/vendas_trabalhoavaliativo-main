@@ -23,6 +23,13 @@ CIDADE_CHOICES = [
     ('Pernambuco', 'Recife'),
 ]
 
+CONTATO_CHOICES = [
+    ('C ', 'Carta'),
+    ('E', 'E-mail'),
+    ('T', 'Telefone'),
+    ('F', 'Fax'),
+]
+
 
 class Clientes(models.Model):
     cpf = models.CharField(
@@ -80,6 +87,7 @@ class Clientes(models.Model):
         max_length=100,
         null=False,
         blank=False,
+        choices= CONTATO_CHOICES,
         help_text="Informe o contato"
     )
 
